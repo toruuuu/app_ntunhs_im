@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
 
             when{
                 number_gap < 0 -> {
-                    textView1.setText(getString(R.string.guess_little))
+                    //textView1.setText(getString(R.string.guess_little))
 
                     min = editText1.text.toString().toInt()
                     textView1.text = "你猜得太小囉!"
-                    //textView2.text=min.toString()+"-"+max.toString()
+                    textView2.text=min.toString()+"-"+max.toString()
                 }
                 number_gap > 0 -> {
                     textView1.text = "你猜得太大囉!"
