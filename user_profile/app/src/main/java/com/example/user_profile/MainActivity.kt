@@ -60,11 +60,11 @@ class MainActivity : AppCompatActivity()
             val radioButton = findViewById<RadioButton>(selectedRadioButtonId)
 
 
-            if (MRT.isChecked) hobby.append("MRT\n")
-            if (bike.isChecked) hobby.append("bike\n")
-            if (car.isChecked) hobby.append("car\n")
+            if (MRT.isChecked) hobby.append("公車\n")
+            if (bike.isChecked) hobby.append("腳踏車\n")
+            if (car.isChecked) hobby.append("四輪車\n")
 
-            AlertDialog.Builder(this).setTitle("Message").setMessage(
+            AlertDialog.Builder(this).setTitle("送出訊息").setMessage(
                     "ID: "+acc.text.toString()+"\n" +
                     "PWD: "+pwd.text.toString()+"\n" +
                     "Name: "+name.text.toString() + "\n" +
