@@ -1,4 +1,4 @@
-package com.example.guess_number
+package com.example.user_profile
 
 import org.junit.Test
 

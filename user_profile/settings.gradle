@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "user_profilo"
+rootProject.name = "user_profile"
 include ':app'

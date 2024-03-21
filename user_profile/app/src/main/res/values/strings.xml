@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">user_profilo</string>
+    <string name="app_name">user_profile</string>
     <string-array name="city">
         <item>臺北市</item>
         <item>新北市</item>
