@@ -1,5 +1,7 @@
-package com.example.guess_number
+package com.example.hw05
 
+
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,15 +12,15 @@ import android.widget.TextView
 import android.widget.Toast
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
-    val TAG:String = MainActivity::class.java.simpleName
+class guess_number : AppCompatActivity() {
+    val TAG:String = guess_number::class.java.simpleName
     private lateinit var handler:Handler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_guess_number)
         handler = Handler(Looper.getMainLooper())
-        val textView1 = findViewById<TextView>(R.id.textView1)
-        val textView2 = findViewById<TextView>(R.id.textView2)
+        val textView1 = findViewById<TextView>(R.id.guessnumber_textView1)
+        val textView2 = findViewById<TextView>(R.id.guessnumber_textView2)
         val editText1 = findViewById<EditText>(R.id.editText1)
         val button1 = findViewById<Button>(R.id.button1)
         val button2 = findViewById<Button>(R.id.button2)
@@ -27,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         var min:Int=1
         var max:Int=100
         var secret:Int = Random().nextInt(100)+1
+
+        val backlobby = findViewById<Button>(R.id.game2tolobby)
+        backlobby.setOnClickListener{
+            var mainIntent = Intent(this,MainActivity::class.java)
+            startActivity(mainIntent)
+        }
 
         button1.setOnClickListener{
             number_gap=editText1.text.toString().toInt()-secret
@@ -72,7 +80,6 @@ class MainActivity : AppCompatActivity() {
             max=100
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null)
