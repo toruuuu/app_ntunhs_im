@@ -31,9 +31,9 @@ class BookingInformation : AppCompatActivity() {
 
 
         // 使用TextView顯示資料
-        outputPhone.text = PhoneValue.toString()
-        outputPerson.text = AdultsValue.toString()+"大"+ ChildrenValue.toString()+"小"
-        outputNote.text = checkBoxValuesString
+        outputPhone.text = "訂位電話:"+PhoneValue.toString()
+        outputPerson.text = "訂位人數:"+AdultsValue.toString()+"大"+ ChildrenValue.toString()+"小"
+        outputNote.text = "需要:"+checkBoxValuesString
 
         back.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
