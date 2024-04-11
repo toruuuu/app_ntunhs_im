@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">exam</string>
+    <string name="phone">訂位電話</string>
+    <string name="Adults">訂位人數(大人)</string>
+    <string name="Children">訂位人數(小孩)</string>
+    <string name="note1">兒童椅</string>
+    <string name="note2">兒童餐具</string>
+    <string name="submit">送出</string>
+    <string name="back">返回</string>
+</resources>
