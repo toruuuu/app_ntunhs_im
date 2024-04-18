@@ -4,75 +4,56 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import java.util.*
+import com.example.guess_number.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     val TAG:String = MainActivity::class.java.simpleName
+    private lateinit var model: GameModel
     private lateinit var handler:Handler
+    private lateinit var binding:ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         handler = Handler(Looper.getMainLooper())
-        val textView1 = findViewById<TextView>(R.id.textView1)
-        val textView2 = findViewById<TextView>(R.id.textView2)
-        val editText1 = findViewById<EditText>(R.id.editText1)
-        val button1 = findViewById<Button>(R.id.button1)
-        val button2 = findViewById<Button>(R.id.button2)
-        var number_gap:Int
-        editText1.text.clear()
-        var min:Int=1
-        var max:Int=100
-        var secret:Int = Random().nextInt(100)+1
-
-        button1.setOnClickListener{
-            number_gap=editText1.text.toString().toInt()-secret
-
-            when{
-                number_gap < 0 -> {
-                    textView1.setText(getString(R.string.guess_little))
-
-                    min = editText1.text.toString().toInt()
-                    textView1.text = "你猜得太小囉!"
-                    textView2.text=min.toString()+"-"+max.toString()
+        model = GameModel()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.editText1.text.clear()
+        binding.button1.setOnClickListener{
+            val guess = binding.editText1.text.toString().toInt()
+            when {
+                model.isGuessTooLow(guess) -> {
+                    model.min = guess
+                    binding.textView1.text = "你猜得太小囉!"
+                    binding.textView2.text = "${model.min}-${model.max}"
                 }
-                number_gap > 0 -> {
-                    textView1.text = "你猜得太大囉!"
-                    max = editText1.text.toString().toInt()
-                    textView2.text=min.toString()+"-"+max.toString()
+                model.isGuessTooHigh(guess) -> {
+                    model.max = guess
+                    binding.textView1.text = "你猜得太大囉!"
+                    binding.textView2.text = "${model.min}-${model.max}"
                 }
                 else -> {
-                    textView1.text="你猜對了!!"
-                    textView2.text="正確數字是"+secret.toString()
-                    Toast.makeText(this,"6秒後重置遊戲",Toast.LENGTH_SHORT).show()
+                    binding.textView1.text = "你猜對了!!"
+                    binding.textView2.text = "正確數字是${model.secret}"
+                    Toast.makeText(this, "6秒後重置遊戲", Toast.LENGTH_SHORT).show()
                     handler.postDelayed({
-                        secret = Random().nextInt(100)+1
-                        textView2.text=secret.toString()
-                        textView1.text="重新開始猜數字"
-                        textView2.text="1-100"
-                        editText1.text.clear()
-                        min=1
-                        max=100
-                    },6000)
+                        model.resetGame()
+                        binding.textView1.text = "重新開始猜數字"
+                        binding.textView2.text = "${model.min}-${model.max}"
+                        binding.editText1.text.clear()
+                    }, 6000)
                 }
-
             }
-            //Toast.makeText(this,editText1.text,Toast.LENGTH_SHORT).show()
         }
-        button2.setOnClickListener {
-            secret = Random().nextInt(100)+1
-            textView2.text=secret.toString()
-            textView1.text="重新開始猜數字"
-            textView2.text="1-100"
-            editText1.text.clear()
-            min=1
-            max=100
+        binding.button2.setOnClickListener {
+            model.resetGame()
+            binding.textView1.text="重新開始猜數字"
+            binding.textView2.text="${model.min}-${model.max}"
+            binding.editText1.text.clear()
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null)
